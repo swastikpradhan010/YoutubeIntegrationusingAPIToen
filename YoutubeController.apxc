@@ -5,7 +5,11 @@ public class YoutubeController {
     public void search(){
         detailList = new List<superItemList>();
         String sanitizedSearchQuery = searchQuery.replaceAll(' ', '+');
-        String endpoint ='https://youtube.googleapis.com/youtube/v3/search?part=snippet&q='+sanitizedSearchQuery+'&key=AIzaSyCsZ-RmGb_EeQQmUczPz1ChHlOjujE6fIE';
+        String apiKey=APi_TokenController.API_Key;
+        API_Tokens__c  k= API_Tokens__c.getValues('Youtube');
+        //Here Youtube is the name of the record in the custom setting of API_Tokens
+        //Below Youtube is the name of the named credential and is refered by callout:Youtube
+        String endpoint ='callout:Youtube?part=snippet&q='+sanitizedSearchQuery+'&key='+k.Key__c;
         //Step 1: Instantiate HTTP Class
         Http http = new Http();
         //Step 2: Instantiate HTTP Request class and frame the request 
